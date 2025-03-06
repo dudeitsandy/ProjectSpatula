@@ -91,19 +91,20 @@ function Bookings() {
   const [filter, setFilter] = useState('all');
   const [bookings, setBookings] = useState([]);
 
+  const loadBookings = React.useCallback(async () => {
+    try {
+      const userBookings = await bookingService.getBookings(user.id);
+      setBookings(userBookings);
+    } catch (error) {
+      showNotification('Failed to load bookings', 'error');
+    } finally {
+      setIsLoading(false);
+    }
+  }, [user.id, showNotification]);
+
   React.useEffect(() => {
-    const loadBookings = async () => {
-      try {
-        const userBookings = await bookingService.getBookings(user.id);
-        setBookings(userBookings);
-      } catch (error) {
-        showNotification('Failed to load bookings', 'error');
-      } finally {
-        setIsLoading(false);
-      }
-    };
     loadBookings();
-  }, [user.id]);
+  }, [loadBookings]);
 
   const filteredBookings = React.useMemo(() => {
     return bookings.filter(booking => {

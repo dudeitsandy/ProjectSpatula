@@ -58,7 +58,7 @@ const Field = styled.div`
 
 const Button = styled.button`
   padding: 0.75rem 1.5rem;
-  background-color: #007bff;
+  background: #007bff;
   color: white;
   border: none;
   border-radius: 4px;
@@ -66,7 +66,7 @@ const Button = styled.button`
   font-size: 1rem;
 
   &:hover {
-    background-color: #0056b3;
+    background: #0056b3;
   }
 
   &:disabled {

@@ -70,11 +70,15 @@ export const bookingService = {
   },
 
   createBooking: (bookingData) => {
+    const kitchen = kitchens.find(k => k.id === bookingData.kitchenId);
+    if (!kitchen) {
+      throw new Error('Kitchen not found');
+    }
     const newBooking = {
       id: mockBookings.length + 1,
       ...bookingData,
       status: 'upcoming',
-      kitchen: kitchens.find(k => k.id === bookingData.kitchenId)
+      kitchen
     };
     mockBookings.push(newBooking);
     return newBooking;

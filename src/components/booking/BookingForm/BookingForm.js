@@ -86,6 +86,9 @@ function BookingForm({ kitchen }) {
 
   const handleSubmit = async (values, { setSubmitting }) => {
     try {
+      if (!kitchen || !kitchen.id || !user || !user.id) {
+        throw new Error('Missing required data');
+      }
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
 
@@ -102,7 +105,7 @@ function BookingForm({ kitchen }) {
       showNotification('Booking successful!', 'success');
       navigate('/bookings');
     } catch (error) {
-      showNotification('Failed to create booking', 'error');
+      showNotification(error.message || 'Failed to create booking', 'error');
     } finally {
       setSubmitting(false);
     }
