@@ -3,8 +3,6 @@ import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import Loader from '../../components/common/Loader/Loader';
-import { kitchens } from '../../utils/mockData';
-import { mockBookings } from '../../utils/mockBookings';
 
 const Container = styled.div`
   max-width: 800px;
@@ -74,38 +72,6 @@ const Button = styled.button`
   &:disabled {
     background-color: #ccc;
     cursor: not-allowed;
-  }
-`;
-
-const BookingList = styled.div`
-  display: grid;
-  gap: 1rem;
-`;
-
-const BookingItem = styled.div`
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 1rem;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 4px;
-  align-items: center;
-
-  &:hover {
-    background-color: #f8f9fa;
-  }
-`;
-
-const BookingInfo = styled.div`
-  h3 {
-    margin: 0 0 0.5rem;
-    color: #333;
-  }
-
-  p {
-    margin: 0;
-    color: #666;
-    font-size: 0.875rem;
   }
 `;
 

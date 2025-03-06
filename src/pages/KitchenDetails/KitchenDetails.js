@@ -3,7 +3,6 @@ import { useParams, useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 import { kitchens } from '../../utils/mockData';
 import BookingForm from '../../components/booking/BookingForm/BookingForm';
-import { useAuth } from '../../context/AuthContext';
 import Loader from '../../components/common/Loader/Loader';
 
 const Container = styled.div`
@@ -73,7 +72,6 @@ const AmenitiesList = styled.ul`
 function KitchenDetailsPage() {
   const { id } = useParams();
   const navigate = useNavigate();
-  const { user } = useAuth();
   const kitchen = kitchens.find(k => k.id === parseInt(id));
 
   if (!kitchen) {
@@ -111,15 +109,7 @@ function KitchenDetailsPage() {
         </MainContent>
 
         <div>
-          {user ? (
-            user.id !== kitchen.ownerId ? (
-              <BookingForm kitchen={kitchen} />
-            ) : (
-              <p>This is your kitchen listing.</p>
-            )
-          ) : (
-            <p>Please <a href="/signin">sign in</a> to book this kitchen.</p>
-          )}
+          <BookingForm kitchen={kitchen} />
         </div>
       </KitchenDetails>
     </Container>

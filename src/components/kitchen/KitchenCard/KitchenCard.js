@@ -1,8 +1,10 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
-const Card = styled.div`
+const Card = styled(Link)`
+  display: block;
+  text-decoration: none;
   border-radius: 8px;
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
@@ -47,11 +49,10 @@ const Rating = styled.span`
 `;
 
 function KitchenCard({ kitchen }) {
-  const navigate = useNavigate();
   const { id, name, location, price, rating, imageUrl } = kitchen;
 
   return (
-    <Card onClick={() => navigate(`/kitchen/${id}`)}>
+    <Card to={`/kitchen/${id}`}>
       <Image src={imageUrl} alt={name} />
       <Content>
         <Name>{name}</Name>
