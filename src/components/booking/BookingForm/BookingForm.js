@@ -4,6 +4,8 @@ import * as Yup from 'yup';
 import styled from 'styled-components';
 import { useAuth } from '../../../context/AuthContext';
 import { useNotification } from '../../../context/NotificationContext';
+import { bookingService } from '../../../utils/mockBookings';
+import { useNavigate } from 'react-router-dom';
 
 const BookingContainer = styled.div`
   padding: 1.5rem;
@@ -71,6 +73,7 @@ const validationSchema = Yup.object({
 function BookingForm({ kitchen }) {
   const { user } = useAuth();
   const { showNotification } = useNotification();
+  const navigate = useNavigate();
   const [totalPrice, setTotalPrice] = useState(0);
 
   const calculatePrice = (start, end) => {
@@ -94,13 +97,12 @@ function BookingForm({ kitchen }) {
         totalPrice,
       };
 
-      console.log('Booking created:', booking);
+      // Create booking in mock service
+      await bookingService.createBooking(booking);
       showNotification('Booking successful!', 'success');
-      
-      // TODO: Redirect to bookings page or show confirmation
+      navigate('/bookings');
     } catch (error) {
       showNotification('Failed to create booking', 'error');
-      console.error('Booking error:', error);
     } finally {
       setSubmitting(false);
     }

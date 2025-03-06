@@ -1,12 +1,10 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { useAuth } from '../../context/AuthContext';
 import { useNotification } from '../../context/NotificationContext';
 import KitchenForm from '../../components/kitchen/KitchenForm/KitchenForm';
 
 function CreateKitchen() {
   const navigate = useNavigate();
-  const { user } = useAuth();
   const { showNotification } = useNotification();
 
   const handleSubmit = async (values, { setSubmitting }) => {

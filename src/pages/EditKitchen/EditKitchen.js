@@ -25,12 +25,10 @@ function EditKitchen() {
     try {
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000));
-      
-      showNotification('Kitchen updated successfully!', 'success');
+      showNotification('Kitchen updated successfully', 'success');
       navigate('/my-kitchens');
     } catch (error) {
       showNotification('Failed to update kitchen', 'error');
-      console.error('Failed to update kitchen:', error);
     } finally {
       setSubmitting(false);
     }

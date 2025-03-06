@@ -61,4 +61,22 @@ export const mockBookings = [
     status: 'completed',
     kitchen: kitchens.find(k => k.id === 4)
   }
-]; 
+];
+
+// Mock booking service
+export const bookingService = {
+  getBookings: (userId) => {
+    return mockBookings.filter(booking => booking.userId === userId);
+  },
+
+  createBooking: (bookingData) => {
+    const newBooking = {
+      id: mockBookings.length + 1,
+      ...bookingData,
+      status: 'upcoming',
+      kitchen: kitchens.find(k => k.id === bookingData.kitchenId)
+    };
+    mockBookings.push(newBooking);
+    return newBooking;
+  }
+}; 

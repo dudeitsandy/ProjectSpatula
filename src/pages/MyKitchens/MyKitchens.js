@@ -123,7 +123,6 @@ function MyKitchens() {
         // TODO: Update kitchen list after deletion
       } catch (error) {
         showNotification('Failed to delete kitchen', 'error');
-        console.error('Failed to delete kitchen:', error);
       }
     }
   };

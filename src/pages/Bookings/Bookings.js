@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { useAuth } from '../../context/AuthContext';
-import { mockBookings } from '../../utils/mockBookings';
+import { bookingService } from '../../utils/mockBookings';
 import { kitchens } from '../../utils/mockData';
 import Loader from '../../components/common/Loader/Loader';
+import { useNotification } from '../../context/NotificationContext';
 
 const Container = styled.div`
   max-width: 1000px;
@@ -85,22 +86,32 @@ const StatusBadge = styled.span`
 
 function Bookings() {
   const { user } = useAuth();
+  const { showNotification } = useNotification();
   const [isLoading, setIsLoading] = useState(true);
   const [filter, setFilter] = useState('all');
+  const [bookings, setBookings] = useState([]);
 
   React.useEffect(() => {
-    // Simulate loading
-    setTimeout(() => setIsLoading(false), 1000);
-  }, []);
+    const loadBookings = async () => {
+      try {
+        const userBookings = await bookingService.getBookings(user.id);
+        setBookings(userBookings);
+      } catch (error) {
+        showNotification('Failed to load bookings', 'error');
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    loadBookings();
+  }, [user.id]);
 
   const filteredBookings = React.useMemo(() => {
-    return mockBookings.filter(booking => {
-      if (booking.userId !== user.id) return false;
+    return bookings.filter(booking => {
       if (filter === 'upcoming') return booking.status === 'upcoming';
       if (filter === 'completed') return booking.status === 'completed';
       return true;
     });
-  }, [filter, user.id]);
+  }, [filter, bookings]);
 
   if (isLoading) {
     return <Loader />;
